@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}  <!-- CSRFトークンを含める -->
+    {{ form.as_p }}  <!-- フォームフィールドを段落(<p>)としてレンダリング -->
+    <button type="submit">新規登録</button>  <!-- 登録ボタン -->
+</form>
