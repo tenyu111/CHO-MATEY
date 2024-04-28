@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Liked_Posts_View {% endblock %}
+
+{% block content %}
+<div class="link">
+    <div class="link-item"><a href="{% url 'create_post' %}">投稿作成</a></div>   
+    <div class="link-item"><a href="{% url 'liked_posts_view' %}">いいねした投稿</a></div>
+    <div class="link-item"><a href="{% url 'edit_profile' %}">ユーザー情報編集</a></div>
+</div>
+    <h1>いいねした投稿</h1>
+    <div>
+        {% if posts_with_likes %}
+             {% include 'post_list.html' %}
+        {% else %}
+            <p>いいねした投稿はありません</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

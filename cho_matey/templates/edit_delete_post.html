@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit_Delete_Post {% endblock %}
+
+{% block content %}
+{% load custom_filters %}
+    <h1>投稿編集・削除</h1>
+
+ <div class="create-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+         <label for="id_product_name">商品名</label>
+    {{ form.product_name|add_attrs:"maxlength:256" }}
+    
+    
+    <label for="id_jan_code">JANコード</label>
+    {{ form.jan_code|add_attrs:"maxlength:13,type:number" }}
+    {% if form.jan_code.errors %}
+        {% for error in form.jan_code.errors %}
+            <div class="form-errors">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <label for="id_category">商品カテゴリ</label>
+    {{ form.category }}
+
+    <div class="form-spacing"></div> 
+    
+    <label for="id_image">商品画像</label>
+    {{ form.image }}
+
+    <div class="form-spacing"></div> 
+
+    <label for="id_purchase_place">購入場所</label>
+    {{ form.purchase_place|add_attrs:"maxlength:70" }}
+
+    
+    <label for="id_price">値段</label>
+    {{ form.price }}
+    
+
+    <div class="form-spacing"></div> 
+
+    <label for="id_purchase_reason">購入検討理由</label>
+    {{ form.purchase_reason|add_attrs:"maxlength:400" }}
+
+        <button type="submit" name="submit">更新</button>
+        <button type="submit" name="delete">削除</button>
+    </form>
+</div>
+{% endblock %}

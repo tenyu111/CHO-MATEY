@@ -1,0 +1,712 @@
+body{
+    background-color:rgb(226, 227, 228);
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    text-align: center;
+}
+
+
+.navbar {
+    background-color: rgb(245, 241, 240); 
+    padding: 0.5rem 1rem; 
+    top:0;
+    left:0;
+    width: 100%;
+    height: 80px;
+    border-bottom: 4px solid white;
+    box-sizing: border-box;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+}
+
+.navbar-nav {
+    display: flex;
+}
+
+.navbar-nav a :hover{
+    color: white;
+
+}
+.navbar-nav .nav-link {
+    margin-left: 15px;
+}
+
+.navbar-nav .nav-link:hover{
+    color:rgb(145, 142, 140);
+    transition: color 0.3s; 
+}
+
+.nav-link{
+    text-decoration: none; 
+    color: black; 
+}
+
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-form .form-control {
+    height: 40px;
+    margin: 0; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
+}
+
+button {
+    padding: 10px;
+    background-color:rgb(226, 227, 228);
+    border: 1px solid #080808;
+    border-radius: 5px;
+    height: 40px;
+    box-sizing: border-box;
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* スムーズな遷移効果 */
+}
+    
+button:hover{
+    background-color: #898c8d; 
+    color: white; /* ホバー時のテキスト色 */
+    border-color: #898c8d; /* ホバー時のボーダー色 */
+}
+
+/* 投稿一覧のスタイル */
+.post-list {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2,minmax(650px,1fr)); 
+    grid-gap: 10px; /* 列間のスペース */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media(max-width: 768px){
+    .post-list{
+        grid-template-columns: 1fr;
+    }
+}
+
+.post-none{
+    grid-column: 1 / -1; /* 全列を占有 */
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+/*一つ一つの投稿スタイル */
+.post {
+    background-color: white; 
+    border: 1px solid #ccc; 
+    display: flex;
+    padding: 10px;
+    width: 650px;
+}
+
+/* 投稿の画像部分のスタイル */
+.image-container {
+    position: relative;
+    margin-right: 10px; /* 右側のマージン */
+    width: 250px; /* 幅 */
+    height: 250px; /* 高さ */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像のフィット */
+}
+
+
+.result-icon {
+     position: absolute;
+     overflow: hidden;
+     top: 0;   /* 上からの距離 */
+     left: 0; /* 右からの距離 */
+     color: rgb(255, 140, 0);
+     font-size: 3em; /* アイコンのサイズを指定 */
+     z-index: 3;
+}
+
+/* 投稿の詳細部分 */
+.post-info {
+    flex-grow: 1;
+}
+
+.product_name{
+    max-width: 370px; 
+    word-wrap: break-word;
+}
+.post-info a {
+    color: rgb(86, 83, 71); /* リンクの色を親要素と同じにする */
+    text-decoration: none; /* 下線を消す */
+    transition:  color 0.3s; /* スムーズな遷移効果 */
+}
+
+.post-info a:hover{
+    color:rgb(255, 140, 0);
+}
+
+.post-info a::after {
+    content: " /"; /* リンクの後にスラッシュを追加 */
+    padding: 0 5px; /* スラッシュの前後の余白 */
+    color: rgb(86, 83, 71);
+    pointer-events: none;
+}
+
+.post-info a:last-child::after {
+    content: ""; /* 最後のリンクにはスラッシュを追加しない */
+}
+
+.link{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-item  a{
+    text-decoration: none; /* テキストの下線を消去 */
+    color: black; /* テキスト色 */
+    display: block; /* ブロックレベル要素として表示 */
+    border: 1px solid #080808; /* 枠線 */
+    border-radius: 10px; /* 角の丸み */
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px; /* 下部のマージン */
+    margin-left: 10px;
+    text-align: center; /* テキストを中央揃え */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* スムーズな遷移効果 */
+    width:200px
+}
+
+.link-item a:hover {
+    background-color: #898c8d; /* ホバー時の背景色 */
+    color: white; /* ホバー時のテキスト色 */
+    border-color: #898c8d; /* ホバー時のボーダー色 */
+}
+
+
+/* プロフィール編集 */
+.form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+    width: 25em;
+    height: 27em;
+    margin: 0 auto;
+}
+
+.form-group label, .form-group input{
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.form-group label{
+    width:100%;
+    margin-left: 60px;
+
+}
+.form-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    height: 1.5em;
+    width: 17em;
+}
+
+.form-group button{
+    width:15em;
+
+}
+
+.form-errors{
+    color: red;
+}
+
+/* 投稿作成画面 */
+.create-info{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    background-color:rgb(122, 121, 121);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); ;
+    width:680px;
+    padding:5px;
+    color: white;
+
+}
+.create-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 25px 5px 25px 5px;
+    width: 680px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.create-form label, .create-form input, .create-form select, .create-form textarea {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.create-form input[type="text"], .create-form textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%; /* 全幅を使用する */
+}
+
+.create-form select{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width:60%
+}
+
+.create-form input[type="file"] {
+    border: none; /
+}
+
+.price{
+    display: flex;
+}
+
+.price-mark{
+    font-size: 22px;
+}
+
+.price-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.create-form textarea {
+    height: 200px; 
+    border-radius: 10px;
+}
+
+.form-spacing {
+    margin: 30px; 
+}
+
+.create-form button{
+    width:15em;
+    margin-top: 40px;
+    margin-left: 11px;
+}
+
+.create-form-errors{
+    color:red;
+}
+
+/* 投稿一覧のスタイル */
+.related-posts {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2,minmax(300px,1fr)); 
+    grid-gap: 10px; /* 列間のスペース */
+    width: 680px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/*一つ一つのの投稿スタイル */
+.related-post {
+    background-color: white; 
+    border: 1px solid #ccc; 
+    display: flex;
+    padding: 10px;
+    margin-top: 30px;
+    margin-right: 0 auto; 
+    margin-left: 0 auto;
+}
+
+/* 投稿の画像部分のスタイル */
+.related-image {
+    position: relative;
+    margin-right: 5px; 
+    width: 125px; 
+    height: 125px; 
+}
+
+.related-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像のフィット */
+}
+
+/* いいねボタン */
+#like-post i{
+    font-size: 2em;
+    cursor: pointer;
+}
+
+ #liked_count{
+    font-size: auto;
+ }
+
+.fas.fa-heart {
+    color: red; /* "いいね"された状態 */
+}
+.far.fa-heart {
+    color: red; /* "いいね"されていない状態 */
+}
+
+
+/* 投稿詳細画面 */
+.post-detail{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    
+}
+
+@media(max-width: 768px){
+    .post-detail{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.post-detail h3{
+    font-size: 25px;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+    width: 680px;
+    height: 1080px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+img{
+    width: 500px;
+    height: auto;
+    
+}
+
+.post-content{
+    font-size: 20px;
+}
+
+.border{
+    border-bottom: 1px solid #5e5d5d; 
+    padding-bottom: 5px; 
+    margin-left: 3px; 
+    margin-right: 3px; 
+    max-width: 500px; 
+    word-wrap: break-word;
+}
+
+.post-content h3{
+    text-align: center;
+    max-width: 500px;
+    word-wrap: break-word;    
+}
+
+.post-content h4{
+    border-bottom: 1px solid #5e5d5d; 
+    padding-bottom: 5px; 
+    margin-left: 3px; 
+    margin-right: 3px; 
+}
+
+.change-style{
+    font-size: 17px;
+    color: #5e5d5d;
+}
+
+.result-report{
+    width: 500px;
+}
+
+.result-report h4{
+    font-size: 2em;
+    color:midnightblue;
+    text-align: center;
+}
+
+.report-content-1{
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #5e5d5d;
+    margin-left: 3px; 
+    margin-right: 3px;
+}
+
+.report-content{
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #5e5d5d;
+    margin-left: 3px; 
+    margin-right: 3px;   
+} 
+
+
+.right{
+    width:680px;
+    max-height: 1100px;
+    overflow-y:auto;
+}
+
+.reaction-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+    margin-bottom: 10px;
+    height:250px;
+}
+
+.reaction-form textarea{
+    height:70px;
+    width:500px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.reaction-form ::placeholder{
+    font-size:x-large
+}
+
+.reaction-ex{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.reaction-form label, .reaction-form input[type="number"]{
+    margin-bottom: 5px;
+    margin-left: auto;
+    font-size: 1.2em;
+}
+
+.reaction-form button{
+    align-items:baseline;
+    width:7em;
+
+}
+
+.reactions{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    height:800px;
+    overflow-y:auto;
+    padding: 10px
+}
+
+.reactions h3{
+    text-align: center;
+}
+
+.reaction-container{
+    border:2px solid rgb(74, 24, 24);
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 1px;
+}
+
+.reaction-info{
+  display: flex;
+  justify-content: space-between;
+  padding: 3px;
+  border-bottom: 1px solid #5e5d5d; 
+  padding-bottom: 5px; 
+  margin-left: 3px; 
+  margin-right: 3px; 
+}
+
+.reaction-username{
+    flex-grow: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 22px;
+}
+
+.reaction-date{
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: 15px;
+    color: #5f6060;
+    white-space: nowrap;
+}
+
+.reaction-delete{
+    margin-left: auto;
+    padding: 0;
+}
+
+.reaction-delete button{
+    padding: 0;
+    border: none;
+    background-color: white;
+    height: auto;
+    font-size: 15px;
+}
+
+.reaction-delete button:hover{
+    color:rgb(255, 140, 0);
+}
+
+.comment-style {
+    max-width: 620px; 
+    word-wrap: break-word;
+    padding:10px;
+}
+
+.boost-score{
+    display: flex;
+    flex-direction: column;
+}
+
+.none-message{
+    text-align: center;
+}
+
+.report-result{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.report-result label, .report-result input, .report-result select, .report-result textarea {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.report-result input[type="text"], .report-result textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 100%; 
+}
+
+.report-result select{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width:60%
+}
+
+.spacing{
+    margin:20px;
+}
+
+.report-result textarea {
+    height: 200px; 
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+
+.report-button{
+    margin-left: 120px;
+    width: 15em;
+}
+
+.edit-result{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+    text-align: center;
+}
+
+.edit-result button{
+    width:10em;
+    margin-left: 20px;
+}
+
+.logout-container{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh; 
+    margin: 0; 
+}
+
+.logout-confirm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 250, 250);
+    border: none;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+    width: 650px;
+    height: 400px;
+    margin: 100px;
+    font-size: 22px;
+}
+
+.logout-confirm button{
+    width: 120px;
+    margin:10px;
+}

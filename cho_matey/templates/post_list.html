@@ -1,0 +1,30 @@
+<div class="post-list">
+    {% for item in posts_with_likes %}
+            <div class="post">
+                <div class="image-container">
+                    <img src="{{ item.post.image.url }}" alt="商品画像" class="img-fluid">
+                    {% if item.has_result %}
+                        <span class="result-icon"><i class="fas fa-check-circle"></i></span>
+                    {% endif %}
+                </div>
+                <div class="post-info">              
+                    <p class="product_name">商品名: {{ item.post.product.product_name }}</p>
+                    <p>投稿者: {{ item.post.user.username }}</p>
+                    <p>更新日時: {{ item.post.updated_at }}</p>
+                    <p>{{ item.liked_count }}件のいいね</p>
+                     
+                        <a href="{% url 'post_detail' item.post.id %}">詳細を見る</a>
+                        {% if show_edit_links %}
+                            <a href="{% url 'edit_delete_post' item.post.id %}">編集・削除</a>
+                            {% if item.result %}
+                                <a href="{% url 'edit_result' item.post.id item.result.id %}">結果編集</a>
+                            {% else %}
+                                <a href="{% url 'report_result' item.post.id %}">結果報告</a>
+                            {% endif %}
+                        {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="post-none">投稿はありません。</p>
+        {% endfor %} 
+</div>

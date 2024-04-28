@@ -1,5 +1,46 @@
-<form method="post">
-    {% csrf_token %}  <!-- CSRFトークンを含める -->
-    {{ form.as_p }}  <!-- フォームフィールドを段落(<p>)としてレンダリング -->
-    <button type="submit">新規登録</button>  <!-- 登録ボタン -->
-</form>
+{% extends 'base.html' %}
+
+{% block title %} Signup {% endblock %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/enter.css' %}">
+{% endblock %} 
+
+{% block content %}
+<div class="centered-container">
+    <h1> 新規登録 </h1>
+</div>
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-field">
+            <label for="{{ form.username.id_for_label }}">ユーザー名</label>  <!-- ユーザー名のラベル -->
+            {{ form.username }} 
+            {% if form.username.errors %}
+                <div class="signup-error">{{ form.username.errors.as_text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.password1.id_for_label }}">パスワード</label>  <!-- パスワードのラベル -->
+            {{ form.password1 }}  
+            {% if form.password1.errors %}
+                <div class="signup-error">{{ form.password1.errors.as_text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.password2.id_for_label }}">パスワード再入力</label>  <!-- パスワード再入力のラベル -->
+            {{ form.password2 }}  
+            {% if form.password2.errors %}
+                <div class="sign-uperror">{{ form.password2.errors.as_text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="container">
+            <div class="item"><button type="submit">新規登録</button></item>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %} Create_Post {% endblock %}
+
+{% block content %}
+{% load custom_filters %}
+
+<div class="link">
+    <div class="link-item"><a href="{% url 'create_post' %}">投稿作成</a></div>   
+    <div class="link-item"><a href="{% url 'liked_posts_view' %}">いいねした投稿</a></div>
+    <div class="link-item"><a href="{% url 'edit_profile' %}">ユーザー情報編集</a></div>
+</div>
+<h1>投稿作成</h1>
+<div class="create-info"> 
+        <p>【お知らせ】</p>
+        <p> 商品名またはJANコードを入力して同じ商品の投稿を見ることができます。</p>
+</div>
+<!--投稿作成-->
+ <div class="create-form">
+    <form method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
+         <label for="id_product_name">商品名</label>
+        {{ form.product_name|add_attrs:"maxlength:144" }}
+        {% for error in form.product_name.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            <div class="create-form-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endif %}
+    
+        <label for="id_jan_code">JANコード</label>
+        {{ form.jan_code|add_attrs:"maxlength:13" }}
+        {% if form.jan_code.errors %}
+            {% for error in form.jan_code.errors %}
+                <div class="create-form-errors">{{ error }}</div>
+            {% endfor %}
+        {% endif %} 
+        {% if form.non_field_errors %}
+            <div class="create-form-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endif %}
+        
+        <label for="id_category">商品カテゴリ</label>
+        {{ form.category }}
+         {% for error in form.category.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+
+        <div class="form-spacing"></div> 
+        
+        <label for="id_image">商品画像</label>
+        {{ form.image }}
+         {% for error in form.image.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+
+        <div class="form-spacing"></div> 
+
+        <label for="id_purchase_place">購入場所</label>
+        {{ form.purchase_place|add_attrs:"maxlength:70" }}
+         {% for error in form.purchase_place.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+        
+        <label for="id_price">値段</label>
+        <div class="price">
+            <div class="price-mark">￥</div>
+         <div class="price-form">
+            <div>{{ form.price }}</div>
+             {% for error in form.price.errors %}
+                <div class="create-form-errors">{{ error }}</div>
+            {% endfor %}
+         </div>
+        </div>
+        
+
+        <div class="form-spacing"></div> 
+
+        <label for="id_purchase_reason">購入検討理由</label>
+        {{ form.purchase_reason|add_attrs:"maxlength:400" }}
+         {% for error in form.purchase_reason.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+            <button type="submit" name="submit" value="create-post">投稿</button>
+            <button type="submit" name="preview" value="search_related_posts">同じ商品の投稿を見る</button>
+    </form>
+ </div>
+
+<!--同じ商品の投稿表示-->
+{% if related_posts %}
+    <div class="related-posts">
+        {% for item in related_posts %}
+            <div class="related-post">
+                <div class="related-image">
+                    <img src="{{ item.post.image.url }}" alt="商品画像" class="img-fluid">
+                    {% if item.has_result %}
+                        <span class="result-icon"><i class="fas fa-check-circle"></i></span>
+                    {% endif %}
+                </div>
+                <div class="post-info">
+                    <p class="product_name">商品名: {{ item.post.product.product_name }}</p>
+                    <p>投稿者: {{ item.post.user.username }}</p>
+                    <p>更新日時: {{ item.post.updated_at }}</p>
+                    <p>{{ item.liked_count }}件のいいね</p>
+                     
+                    <a href="{% url 'post_detail' item.post.id %}">詳細を見る</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    {% if preview_clicked %} 
+        <p class="post-none">同じ商品の投稿はありません。</p>
+    {% endif %}
+{% endif %}
+
+
+{% endblock %}

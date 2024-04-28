@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit_Result {% endblock %}
+
+{% block content %}
+<h1>結果編集</h1>
+    <div class="post-detail">
+        <div class="left">
+            {% include 'detail.html' %}
+            {% if result %}
+                <div class="result-report">
+                    <h4>結果報告</h4>
+                    <div class="report-content-1">結果：{{ result.get_result_category_display }}</div>
+                    {% if result.purchased_product_name %}
+                        <div class="report-content">購入した商品：</div>
+                        <div>{{ result.purchased_product_name}}</div>
+                    {% endif %}
+                    {% if result.result_image %}
+                        <img src="{{ result.result_image.url }}" alt="Result Image">
+                    {% endif %}
+                    {% if result.result_comment %}
+                        <div class="report-content">コメント：</div>
+                        <div>{{ result.result_comment }}</div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="right">
+            <div class="report-result">
+                <h3>結果編集</h3>
+                    <!-- 結果報告の編集・削除 -->
+                        <!-- 編集・削除フォーム -->
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div>
+                            <label for="{{ form.result_category.id_for_label }}">結果</label>
+                                {{ form.result_category }}
+                            </div>
+                            <div>
+                                <label for="{{ form.purchased_product_name.id_for_label }}">購入した商品</label>
+                                {{ form.purchased_product_name }}
+                            </div>
+                            <div>
+                                <label for="{{ form.result_image.id_for_label }}">画像</label>
+                                {{ form.result_image }}
+                            </div>
+                            <div class="spacing"></div>
+                            <div>
+                                <label for="{{ form.result_comment.id_for_label }}">コメント</label>
+                                {{ form.result_comment }}
+                            </div>
+                            <div class="edit-result">
+                                <button type="submit">更新</button>
+                                <button type="submit" name="delete">削除</button>
+                            </div>
+                        </form>
+            </div>   
+            <div class="reactions">
+                <h3>コメント一覧</h3>
+                    {% for reaction in post.reactions.all %}
+                    <div class="reaction-container">
+                        <div class='reaction-info'> 
+                            <div class="reaction-username">{{ reaction.user.username }}</div> 
+                            <div class="reaction-date">{{ reaction.created_at }}</div>
+                        </div>
+                        <p class="comment-style">{{ reaction.comment }} </p>
+                        <div class="score-date">
+                            <div>
+                            {% if reaction.boost_score %}
+                                (おすすめ度: {{ reaction.boost_score }})
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p class="none-message">コメントがありません</p>
+                    {% endfor %}
+            </div>
+        </div>
+{% endblock %}
+

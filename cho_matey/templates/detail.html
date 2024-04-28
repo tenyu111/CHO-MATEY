@@ -1,0 +1,31 @@
+<!--投稿詳細-->
+<div class="post-content">
+          <h3>{{ post.user.username }}の欲しいもの</h3>
+        <div class="image">
+          <p><img src="{{ post.image.url }}" alt="商品画像"></p>
+        </div>
+        <h4>{{ post.product.product_name }}</h4>
+          <p class="border">カテゴリ：{{ post.product.category.category_name }}</p>
+          <p class="border">JANコード：{{ post.product.jan_code }}</p>
+          <p class="border">購入場所：{{ post.purchase_place }}</p>
+          <p class="border">値段：{{ post.price }}円</p>
+          <p class="border">購入検討理由：{{ post.purchase_reason }}</p>
+
+          {% if liked %}
+              <button type="button" id="like-post" style="border:none;background:none">
+              <i class="fas fa-heart text-danger" id="icon">
+                  <span id="liked_count">{{ liked_count }}件のいいね</span>
+              </i>
+              </button>
+          {% else %}
+              <button type="button" id="like-post" style="border:none;background:none">
+                <i class="far fa-heart text-danger" id="icon">
+                  <span id="liked_count">{{ liked_count }}件のいいね</span>
+                </i>
+              </button>
+          {% endif %}
+        <div class="change-style">
+          <p>投稿日時: {{ post.created_at }}</p>
+          <p>更新日時: {{ post.updated_at }}</p>
+        </div>  
+  </div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CHO-MATEY{% endblock %}</title>
+    {% comment %} <!-- Bootstrap CSS の読み込み -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> {% endcomment %}
+    {% comment %} 結果報告済みアイコン {% endcomment %}
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    {% block extra_head %}{% endblock %}
+   {% comment %} フォントのURL {% endcomment %}
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+     body {
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- CHO-MATEYへのリンク -->
+            <h3>CHO-MATEY</h3>
+            <!-- ナビゲーションアイテム -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="javascript:history.back()">Back</a>
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'mypage' %}">Mypage</a>
+                    <a class="nav-link" href="{% url 'logout_confirm' %}">Logout</a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'start' %}">戻る</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    {% block content %}
+    {% endblock %}
+
+    {% block extrajs %}
+    {% endblock %}
+</body>
+</html>
+

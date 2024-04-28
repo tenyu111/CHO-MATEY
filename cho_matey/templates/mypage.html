@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Mypage {% endblock %}
+
+{% block content %}
+    <div class="link">
+        <div class="link-item"><a href="{% url 'create_post' %}">投稿作成</a></div>   
+        <div class="link-item"><a href="{% url 'liked_posts_view' %}">いいねした投稿</a></div>
+        <div class="link-item"><a href="{% url 'edit_profile' %}">ユーザー情報編集</a></div>
+    </div>
+
+        <h1>自分の投稿</h1>
+        {% include 'post_list.html' with posts_with_likes=posts_with_likes show_edit_links=True%}
+    
+{% endblock %}
+
