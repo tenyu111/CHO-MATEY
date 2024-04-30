@@ -53,11 +53,15 @@ class PostForm(forms.ModelForm):
       queryset=Product_Categories.objects.all(), required=False
     )
    image = forms.ImageField(required=False)
-   product_name = forms.CharField(max_length=144, required=False)
-   jan_code = forms.CharField(max_length=13, required=False)
-   purchase_place = forms.CharField(max_length=70, required=False)
+   product_name = forms.CharField(max_length=256, required=False)
+   jan_code = forms.CharField(
+    widget=forms.TextInput(attrs={'placeholder': '13桁のコードを入力'}),
+    max_length=13,
+    required=False
+    )
+   purchase_place = forms.CharField(max_length=200, required=False)
    price = forms.IntegerField(min_value=0, required=False)
-   purchase_reason = forms.CharField(max_length=400,widget=forms.Textarea, required=False)
+   purchase_reason = forms.CharField(widget=forms.Textarea(attrs={'maxlength': '400','placeholder':'400字以内で入力'}), required=False)
    
    def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
@@ -125,6 +129,7 @@ class PostForm(forms.ModelForm):
 
 #結果報告用のフォーム
 class ResultForm(forms.ModelForm):
+  result_comment = forms.CharField(widget=forms.Textarea(attrs={'maxlength': '400','placeholder':'400字以内で入力'}))
   class Meta:
     model = Results
     fields = ['result_category','purchased_product_name','result_image','result_comment']
