@@ -21,10 +21,24 @@
                         <div class="report-content">購入した商品：{{ result.purchased_product_name}}</div>
                     {% endif %}
                     {% if result.result_comment %}
-                        <div class="report-content">コメント：{{ result.result_comment }}</div>
+                        <div class="report-content">
+                            <div>コメント：</div>
+                            <div>{{ result.result_comment|linebreaksbr }}</div>
+                        </div>
                     {% endif %}
                 </div>
             {% endif %}
+            {% if is_owner %}
+                <div class="link2">
+                    <div class="link-item2">  <a href="{% url 'edit_delete_post' post.id %}">編集・削除</a></div>   
+                {% if result %}
+                    <div class="link-item2">  <a href="{% url 'edit_result' post.id result.id %}">結果編集</a></div>
+                {% else %} 
+                    <div class="link-item2"> <a href="{% url 'report_result' post.id %}">結果報告</a></div>
+                {% endif %}
+                </div>
+            {% endif %}
+
         </div>
 
         <div class="right">
@@ -65,7 +79,7 @@
                             </form>
                             {% endif %}
                         </div>
-                        <p class="comment-style">{{ reaction.comment }} </p>
+                        <p class="comment-style">{{ reaction.comment|linebreaksbr }} </p>
                         <div class="boost-score">
                             <div>
                             {% if reaction.boost_score %}

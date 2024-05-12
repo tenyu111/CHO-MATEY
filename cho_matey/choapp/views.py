@@ -15,6 +15,9 @@ from .models import Posts, Liked_Posts, Results, Reactions
 from django.http import JsonResponse
 from django.views import View
 
+#紹介ページ
+def introduction(request):
+    return render(request, 'introduction.html')
 
 #スタート画面
 def start(request):
@@ -85,7 +88,8 @@ def home(request):
          product_name = search_form.cleaned_data.get('product_name')
          category = search_form.cleaned_data.get('category')
          jan_code = search_form.cleaned_data.get('jan_code')
-
+         asin_code = search_form.cleaned_data.get('asin_code')
+         
          posts = Posts.objects.all().order_by('-updated_at')
          if product_name:
              posts = posts.filter(product__product_name__icontains=product_name)
@@ -93,6 +97,8 @@ def home(request):
              posts = posts.filter(product__category=category)
          if jan_code:
              posts = posts.filter(product__jan_code__icontains=jan_code)
+         if asin_code:
+             posts = posts.filter(product__asin_code__icontains=asin_code)
      else:
         posts = Posts.objects.all().order_by('-updated_at')
      
@@ -108,11 +114,11 @@ def home(request):
 @login_required
 def post_detail(request, post_id):
     post = get_object_or_404(Posts, pk=post_id)
+    is_owner = request.user == post.user
     liked = False
     liked_count = Liked_Posts.objects.filter(post=post).count()
     result = Results.objects.filter(post=post).first()
     reactions = Reactions.objects.filter(post=post).order_by('-created_at')
-    
     if request.user.is_authenticated:
         liked = Liked_Posts.objects.filter(post=post, user=request.user).exists()
     
@@ -133,6 +139,7 @@ def post_detail(request, post_id):
         
     return render(request, 'post_detail.html', {
         'post': post,
+        'is_owner':is_owner,
         'reactions': reactions,
         'reaction_form': reaction_form,
         'liked': liked,
@@ -206,7 +213,8 @@ def create_post(request):
             if form.is_valid():
                 product_name = form.cleaned_data.get('product_name')
                 jan_code = form.cleaned_data.get('jan_code')
-                related_posts_query = Posts.objects.filter(product__product_name=product_name) | Posts.objects.filter(product__jan_code=jan_code)
+                asin_code = form.cleaned_data.get('asin_code')
+                related_posts_query = Posts.objects.filter(product__product_name=product_name) | Posts.objects.filter(product__jan_code=jan_code)| Posts.objects.filter(product__asin_code=asin_code)
                 related_posts_info = []
                 for post in related_posts_query:
                     liked_count = Liked_Posts.objects.filter(post=post).count()

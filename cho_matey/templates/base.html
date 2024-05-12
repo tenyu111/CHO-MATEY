@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}CHO-MATEY{% endblock %}</title>
-    {% comment %} <!-- Bootstrap CSS の読み込み -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> {% endcomment %}
-    {% comment %} 結果報告済みアイコン {% endcomment %}
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
    {% load static %}
    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
@@ -28,7 +24,11 @@
     <nav class="navbar">
         <div class="navbar-container">
             <!-- CHO-MATEYへのリンク -->
-            <h3>CHO-MATEY</h3>
+            {% if user.is_authenticated %}
+                <h3><a class="nav-link" href="{% url 'home' %}">CHO-MATEY</h3>
+            {% else %}
+                <h3><a class="nav-link" href="{% url 'start' %}">CHO-MATEY</h3>
+            {% endif %}
             <!-- ナビゲーションアイテム -->
             <div class="navbar-nav">
                 {% if user.is_authenticated %}

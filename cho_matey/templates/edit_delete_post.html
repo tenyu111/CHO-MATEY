@@ -11,39 +11,89 @@
         {% csrf_token %}
          <label for="id_product_name">商品名</label>
     {{ form.product_name|add_attrs:"maxlength:256" }}
-    
+       {% for error in form.product_name.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            <div class="create-form-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endif %}
     
     <label for="id_jan_code">JANコード</label>
     {{ form.jan_code|add_attrs:"maxlength:13,type:number" }}
-    {% if form.jan_code.errors %}
-        {% for error in form.jan_code.errors %}
-            <div class="form-errors">{{ error }}</div>
-        {% endfor %}
-    {% endif %}
+     {% if form.jan_code.errors %}
+            {% for error in form.jan_code.errors %}
+                <div class="create-form-errors">{{ error }}</div>
+            {% endfor %}
+        {% endif %} 
+        {% if form.non_field_errors %}
+            <div class="create-form-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endif %}
     
+    <label for="id_asin_code">ASINコード</label>
+    {{ form.asin_code|add_attrs:"maxlength:10"}}
+    {% if form.asin_code.errors %}
+        {% for error in form.asin_code.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+    {% endif %} 
+    {% if form.non_field_errors %}
+        <div class="create-form-errors"> 
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+    {% endif %} 
+
     <label for="id_category">商品カテゴリ</label>
     {{ form.category }}
+    {% for error in form.category.errors %}
+        <div class="create-form-errors">{{ error }}</div>
+    {% endfor %}
 
     <div class="form-spacing"></div> 
     
     <label for="id_image">商品画像</label>
-    {{ form.image }}
+        {{ form.image }}
+         {% for error in form.image.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
 
-    <div class="form-spacing"></div> 
+        <div class="form-spacing"></div> 
 
-    <label for="id_purchase_place">購入場所</label>
-    {{ form.purchase_place|add_attrs:"maxlength:70" }}
+        <label for="id_purchase_place">購入場所</label>
+        {{ form.purchase_place|add_attrs:"maxlength:70" }}
+         {% for error in form.purchase_place.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+        
+        <label for="id_price">値段</label>
+        <div class="price">
+            <div class="price-mark">￥</div>
+         <div class="price-form">
+            <div>{{ form.price }}</div>
+             {% for error in form.price.errors %}
+                <div class="create-form-errors">{{ error }}</div>
+            {% endfor %}
+         </div>
+        </div>
+        
 
-    
-    <label for="id_price">値段</label>
-    {{ form.price }}
-    
+        <div class="form-spacing"></div> 
 
-    <div class="form-spacing"></div> 
-
-    <label for="id_purchase_reason">購入検討理由</label>
-    {{ form.purchase_reason|add_attrs:"maxlength:400" }}
-
+        <label for="id_purchase_reason">購入検討理由</label>
+        {{ form.purchase_reason|add_attrs:"maxlength:400" }}
+         {% for error in form.purchase_reason.errors %}
+            <div class="create-form-errors">{{ error }}</div>
+        {% endfor %}
+            
         <button type="submit" name="submit">更新</button>
         <button type="submit" name="delete">削除</button>
     </form>

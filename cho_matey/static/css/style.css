@@ -27,6 +27,11 @@ h1{
     width: 100%; 
 }
 
+.navbar-container .nav-link:hover{
+    color:rgb(145, 142, 140);
+    transition: color 0.3s; 
+}
+
 .navbar-nav {
     display: flex;
 }
@@ -58,6 +63,7 @@ h1{
 
 .search-form .form-control {
     height: 40px;
+    width: 150px;
     margin: 0; 
     padding: 10px; 
     border: 1px solid #ccc; 
@@ -486,6 +492,34 @@ img{
     margin-right: 3px;   
 } 
 
+.link2{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-item2 a{
+    text-decoration: none; /* テキストの下線を消去 */
+    color: black; /* テキスト色 */
+    background-color: rgb(226, 227, 228);
+    display: block; /* ブロックレベル要素として表示 */
+    border: 1px solid #080808; /* 枠線 */
+    border-radius: 10px; /* 角の丸み */
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px; /* 下部のマージン */
+    margin-left: 10px;
+    text-align: center; /* テキストを中央揃え */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* スムーズな遷移効果 */
+    width:160px
+}
+
+.link-item2 a:hover {
+    background-color: #898c8d; /* ホバー時の背景色 */
+    color: white; /* ホバー時のテキスト色 */
+    border-color: #898c8d; /* ホバー時のボーダー色 */
+}
 
 .right{
     width:680px;

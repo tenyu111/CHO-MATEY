@@ -61,7 +61,7 @@
                             <div class="reaction-username">{{ reaction.user.username }}</div> 
                             <div class="reaction-date">{{ reaction.created_at }}</div>
                         </div>
-                        <p class="comment-style">{{ reaction.comment }} </p>
+                        <p class="comment-style">{{ reaction.comment|linebreaksbr }} </p>
                         <div class="score-date">
                             <div>
                             {% if reaction.boost_score %}

@@ -63,7 +63,8 @@ class Product_Categories(models.Model):
 class Products(BaseModel):
     category = models.ForeignKey(Product_Categories, on_delete=models.CASCADE) 
     product_name = models.CharField(max_length=256)
-    jan_code = models.CharField(max_length=13)
+    jan_code = models.CharField(max_length=13, null=True)
+    asin_code= models.CharField(max_length=10, null=True)
     
     class Meta:
         db_table = 'products'

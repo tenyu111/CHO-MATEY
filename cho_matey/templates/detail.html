@@ -7,9 +7,13 @@
         <h4>{{ post.product.product_name }}</h4>
           <p class="border">カテゴリ：{{ post.product.category.category_name }}</p>
           <p class="border">JANコード：{{ post.product.jan_code }}</p>
+          <p class="border">ASINコード：{{ post.product.asin_code }}</p>
           <p class="border">購入場所：{{ post.purchase_place }}</p>
           <p class="border">値段：{{ post.price }}円</p>
-          <p class="border">購入検討理由：{{ post.purchase_reason }}</p>
+          <div class="border">
+            <div>購入検討理由：</div>
+            <div>{{ post.purchase_reason|linebreaksbr }}</div>
+          </div>
 
           {% if liked %}
               <button type="button" id="like-post" style="border:none;background:none">

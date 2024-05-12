@@ -13,7 +13,8 @@
 <h1>投稿作成</h1>
 <div class="create-info"> 
         <p>【お知らせ】</p>
-        <p> 商品名またはJANコードを入力して同じ商品の投稿を見ることができます。</p>
+        <div>JANコードとASINコードはどちらか1つの入力でかまいません。</div>
+        <p> 商品名,JANコード,ASINコードのいずれかを入力して同じ商品の投稿を見られます。</p>
 </div>
 <!--投稿作成-->
  <div class="create-form">
@@ -32,7 +33,7 @@
             </div>
         {% endif %}
     
-        <label for="id_jan_code">JANコード</label>
+        <label for="id_jan_code">◇JANコード</label>
         {{ form.jan_code|add_attrs:"maxlength:13" }}
         {% if form.jan_code.errors %}
             {% for error in form.jan_code.errors %}
@@ -47,6 +48,21 @@
             </div>
         {% endif %}
         
+        <label for="id_asin_code">◇ASINコード</label>
+        {{ form.asin_code|add_attrs:"maxlength:10" }}
+        {% if form.asin_code.errors %}
+            {% for error in form.asin_code.errors %}
+                <div class="create-form-errors">{{ error }}</div>
+            {% endfor %}
+        {% endif %} 
+        {% if form.non_field_errors %}
+            <div class="create-form-errors"> 
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+        {% endif %} 
+
         <label for="id_category">商品カテゴリ</label>
         {{ form.category }}
          {% for error in form.category.errors %}

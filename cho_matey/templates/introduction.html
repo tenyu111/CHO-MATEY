@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction</title>
+    <style>
+        body {
+            font-family: Meiryo, sans-serif;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        img {
+            width: 60%;
+            height: auto;
+            margin: 20px 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        p{
+            line-height:1.2;
+        }
+        .link {
+            display: inline-block;
+            font-size: 20px;
+            margin: 10px 20px;
+            color: blue;
+            cursor:pointer;
+        }
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #007BFF;
+            color: #fff;
+            margin: 15px auto;
+            padding: 10px 15px;
+            width:180px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>作品No.1 CHO-MATEY</h1>
+        <img src="/media/cho_matey/cho_matey.jpg" alt="CHO-MATEYのスクリーンショット">
+        <p>CHO-MATEYは、他のユーザーからのコメントをもとに、衝動買いを抑制し、
+        より適切な買い物をサポートするアプリです。</p>
+        <p>このアプリを利用することで、今買おうとしている商品が本当に買うべき商品かどうか冷静に判断することができるようになります。</p>
+
+        <a href="media/cho_matey/企画書・画面設計図.pdf" class="link">企画書・画面設計図</a>
+        <a href="media/cho_matey/画面遷移図.svg" class="link">画面遷移図</a>
+        <a href="media/cho_matey/ER図.svg" class="link">ER図</a>
+        <a href="{% url 'start' %}" class="button">このアプリにアクセス</a>
+    </div>
+</body>
+</html>
