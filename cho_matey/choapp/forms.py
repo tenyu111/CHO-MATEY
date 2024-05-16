@@ -154,7 +154,9 @@ class PostForm(forms.ModelForm):
 
 #結果報告用のフォーム
 class ResultForm(forms.ModelForm):
-  result_comment = forms.CharField(widget=forms.Textarea(attrs={'maxlength': '400','placeholder':'400字以内で入力'}))
+  result_comment = forms.CharField(
+    widget=forms.Textarea(attrs={'maxlength': '400','placeholder':'400字以内で入力'})
+    )
   class Meta:
     model = Results
     fields = ['result_category','purchased_product_name','result_image','result_comment']
@@ -197,6 +199,7 @@ class SearchForm(forms.Form):
         #全角を半角に変換
         asin_code = unicodedata.normalize('NFKC', asin_code)
       return asin_code
+    
 #投稿に対するリアクション用フォーム   
 class ReactionForm(forms.ModelForm):
   def __init__(self, *args, **kwargs):
